@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background: #f4f4f4;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+header h1 a {
+    color: #fff;
+    text-decoration: none;
+}
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+header nav ul li a:hover {
+    background: #555;
+    border-radius: 5px;
+}
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    header nav {
+        width: 100%;
+        display: none;
+    }
+    header nav.active {
+        display: block;
+    }
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+    header nav ul li {
+        margin: 5px 0;
+    }
+}
+main {
+    margin: 20px 0;
+    min-height: 70vh;
+}
+.project-card, .project-detail {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.project-card h3 a {
+    text-decoration: none;
+    color: #333;
+}
+.project-card .description {
+    margin: 10px 0;
+    color: #555;
+}
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 10px;
+}
+.likes {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.like-btn, .like-btn-detail {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+}
+.like-btn.liked, .like-btn-detail.liked {
+    color: red;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.pagination a {
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+}
+.pagination a.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.form-container label {
+    display: block;
+    margin: 10px 0 5px;
+}
+.form-container input, .form-container select, .form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.form-container button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+.success {
+    color: green;
+    margin-bottom: 10px;
+}
+.response-item {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #333;
+}
+.response-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+.add-response {
+    margin-top: 20px;
+}
+.add-response textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.admin-table th {
+    background: #f2f2f2;
+}
+.admin-form {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+.filter-form {
+    margin-bottom: 20px;
+}
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 20px;
+}
+@media (max-width: 768px) {
+    .meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .admin-table, .admin-table thead, .admin-table tbody, .admin-table th, .admin-table td, .admin-table tr {
+        display: block;
+    }
+    .admin-table thead {
+        display: none;
+    }
+    .admin-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+    }
+    .admin-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .admin-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+    }
+}
