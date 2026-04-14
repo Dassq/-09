@@ -42,6 +42,12 @@ if (isset($_SESSION['user_id'])) {
         <?php if ($project['budget']): ?>
             <span>Бюджет: <?php echo number_format($project['budget'], 0, '.', ' '); ?> ₽</span>
         <?php endif; ?>
+        <?php if ($project['file_path'] && file_exists($project['file_path'])): ?>
+    <div class="tz-file">
+        <strong>Техническое задание:</strong>
+        <a href="<?php echo htmlspecialchars($project['file_path']); ?>" target="_blank">Скачать файл (PDF/DOCX)</a>
+    </div>
+<?php endif; ?>
         <span class="likes">
             <button class="like-btn-detail <?php echo $user_liked ? 'liked' : ''; ?>" data-project-id="<?php echo $project['id']; ?>">❤️</button>
             <span class="likes-count"><?php echo (int)$project['likes_count']; ?></span>

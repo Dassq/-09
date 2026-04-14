@@ -245,4 +245,47 @@ footer {
         text-align: left;
         font-weight: bold;
     }
+    /* Поиск и фильтры */
+.search-filter {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+.filter-row input, .filter-row button, .filter-row a.reset {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--gray-light);
+    border-radius: 2rem;
+    font-size: 0.9rem;
+}
+.filter-row input {
+    flex: 1;
+    min-width: 150px;
+}
+.filter-row button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.filter-row a.reset {
+    background: #f1f5f9;
+    text-decoration: none;
+    color: var(--dark);
+}
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+    }
+    .filter-row input, .filter-row button, .filter-row a.reset {
+        width: 100%;
+    }
+}
 }

@@ -23,11 +23,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($title) || empty($description)) {
         $error = 'Название и описание обязательны';
     } else {
-        $stmt = $pdo->prepare("INSERT INTO projects (title, description, budget, contact_info, customer_id) VALUES (?, ?, ?, ?, ?)");
-        if ($stmt->execute([$title, $description, $budget, $contact_info, $customer_id])) {
-            $success = 'Проект успешно создан';
-        } else {
-            $error = 'Ошибка создания проекта';
+        // Обработка загруженного файла
+        $file_path = null;
+        if (isset($_FILES['tz_file']) && $_FILES['tz_file']['error'] == UPLOAD_ERR_OK) {
+            $allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $_FILES['tz_file']['tmp_name']);
+            finfo_close($finfo);
+            
+            if (!in_array($mime, $allowed)) {
+                $error = 'Можно загружать только PDF или DOC/DOCX файлы';
+            } else {
+                $ext = pathinfo($_FILES['tz_file']['name'], PATHINFO_EXTENSION);
+                $filename = uniqid() . '.' . $ext;
+                $upload_dir = 'uploads/';
+                if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+                $destination = $upload_dir . $filename;
+                if (move_uploaded_file($_FILES['tz_file']['tmp_name'], $destination)) {
+                    $file_path = $destination;
+                } else {
+                    $error = 'Ошибка сохранения файла';
+                }
+            }
+        }
+        
+        if (!$error) {
+            $stmt = $pdo->prepare("INSERT INTO projects (title, description, budget, contact_info, customer_id, file_path) VALUES (?, ?, ?, ?, ?, ?)");
+            if ($stmt->execute([$title, $description, $budget, $contact_info, $customer_id, $file_path])) {
+                $success = 'Проект успешно создан';
+            } else {
+                $error = 'Ошибка создания проекта';
+            }
         }
     }
 }
@@ -48,7 +74,7 @@ if ($_SESSION['role'] == 'admin') {
     <?php if ($success): ?>
         <div class="success"><?php echo htmlspecialchars($success); ?></div>
     <?php endif; ?>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <label>Название проекта *</label>
         <input type="text" name="title" required>
         <label>Описание *</label>
@@ -57,6 +83,8 @@ if ($_SESSION['role'] == 'admin') {
         <input type="number" name="budget" step="0.01">
         <label>Контактная информация (необязательно)</label>
         <textarea name="contact_info" rows="2"></textarea>
+        <label>Техническое задание (PDF, DOC, DOCX)</label>
+        <input type="file" name="tz_file" accept=".pdf,.doc,.docx">
         <?php if ($_SESSION['role'] == 'admin' && !empty($customers)): ?>
             <label>Заказчик (выберите)</label>
             <select name="customer_select">
