@@ -280,12 +280,4 @@ footer {
     text-decoration: none;
     color: var(--dark);
 }
-@media (max-width: 768px) {
-    .filter-row {
-        flex-direction: column;
-    }
-    .filter-row input, .filter-row button, .filter-row a.reset {
-        width: 100%;
-    }
-}
 }

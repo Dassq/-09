@@ -1,5 +1,5 @@
 <?php
-require_once 'config/db.php';
+require_once '../config/db.php';
 session_start();
 
 $project_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

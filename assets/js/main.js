@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const isLiked = this.classList.contains('liked');
             const action = isLiked ? 'unlike' : 'like';
             
-            fetch('/ajax/like.php', {
+            fetch('ajax/like.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `project_id=${projectId}&action=${action}`
